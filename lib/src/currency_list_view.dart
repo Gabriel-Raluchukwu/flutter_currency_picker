@@ -95,8 +95,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       final List<String> currencyFilter =
           widget.currencyFilter!.map((code) => code.toUpperCase()).toList();
 
-      _currencyList
-          .removeWhere((element) => !currencyFilter.contains(element.code));
+      _currencyList.removeWhere((element) => !currencyFilter.contains(element.code));
     }
 
     if (widget.favorite != null) {
@@ -157,8 +156,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
   }
 
   Widget _listRow(Currency currency) {
-    final TextStyle titleTextStyle =
-        widget.theme?.titleTextStyle ?? _defaultTitleTextStyle;
+    final TextStyle titleTextStyle = widget.theme?.titleTextStyle ?? _defaultTitleTextStyle;
     final TextStyle subtitleTextStyle =
         widget.theme?.subtitleTextStyle ?? _defaultSubtitleTextStyle;
     final currencySignTextStyle =
@@ -171,7 +169,6 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       child: InkWell(
         onTap: () {
           widget.onSelect(currency);
-          Navigator.pop(context);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 8.0),
@@ -199,9 +196,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
                           if (widget.showCurrencyName) ...[
                             Text(
                               currency.name,
-                              style: widget.showCurrencyCode
-                                  ? subtitleTextStyle
-                                  : titleTextStyle,
+                              style: widget.showCurrencyCode ? subtitleTextStyle : titleTextStyle,
                             ),
                           ]
                         ],
