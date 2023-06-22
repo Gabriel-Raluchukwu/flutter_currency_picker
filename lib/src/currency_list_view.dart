@@ -1,10 +1,10 @@
-import 'package:currency_picker/src/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'currency.dart';
-import 'currency_picker_theme_data.dart';
-import 'currency_service.dart';
 import 'currency_utils.dart';
+import 'currency_service.dart';
+import 'currency_picker_theme_data.dart';
+import 'package:currency_picker/src/extensions.dart';
 
 class CurrencyListView extends StatefulWidget {
   /// Called when a currency is select.
@@ -42,10 +42,14 @@ class CurrencyListView extends StatefulWidget {
   /// To disable the search TextField (optional).
   final bool showSearchField;
 
+  final String? label;
+
   /// Hint of the search TextField (optional).
   ///
   /// Defaults Search.
   final String? searchHint;
+
+  final bool showClearSuffix;
 
   final ScrollController? controller;
 
@@ -61,7 +65,9 @@ class CurrencyListView extends StatefulWidget {
     this.favorite,
     this.currencyFilter,
     this.showSearchField = true,
+    this.label,
     this.searchHint,
+    this.showClearSuffix = false,
     this.showCurrencyCode = true,
     this.showCurrencyName = true,
     this.showFlag = true,
@@ -85,6 +91,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
 
   @override
   void initState() {
+    super.initState();
     _searchController = TextEditingController();
 
     _currencyList = _currencyService.getAll();
@@ -103,7 +110,6 @@ class _CurrencyListViewState extends State<CurrencyListView> {
     }
 
     _filteredList.addAll(_currencyList);
-    super.initState();
   }
 
   @override
@@ -123,14 +129,31 @@ class _CurrencyListViewState extends State<CurrencyListView> {
               ? TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    labelText: widget.searchHint ?? "Search",
+                    labelText: widget.label,
                     hintText: widget.searchHint ?? "Search",
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon: widget.theme?.searchIcon,
                     border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: defaultColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: const Color(0xFF8C98A8).withOpacity(0.2),
+                        color: widget.theme?.borderColor ?? defaultColor,
                       ),
                     ),
+                    suffixIcon: widget.showClearSuffix
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.clear,
+                              color: widget.theme?.borderColor ?? defaultColor,
+                            ),
+                            onPressed: () {
+                              _searchController?.clear();
+                              _filterSearchResults("");
+                            },
+                          )
+                        : null,
                   ),
                   onChanged: _filterSearchResults,
                 )
@@ -167,9 +190,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       // so the ripple effect of InkWell will show on tap
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
-          widget.onSelect(currency);
-        },
+        onTap: () => widget.onSelect(currency),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 8.0),
           child: Row(
@@ -250,17 +271,17 @@ class _CurrencyListViewState extends State<CurrencyListView> {
     if (query.isEmpty) {
       searchResult.addAll(_currencyList);
     } else {
+      query = query.toLowerCase();
       searchResult = _currencyList
           .where(
-            (c) =>
-                c.name.toLowerCase().contains(query.toLowerCase()) ||
-                c.code.toLowerCase().contains(query.toLowerCase()),
-          )
+              (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query))
           .toList();
     }
 
     setState(() => _filteredList = searchResult);
   }
+
+  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
 
   TextStyle get _defaultTitleTextStyle => const TextStyle(fontSize: 17);
   TextStyle get _defaultSubtitleTextStyle =>

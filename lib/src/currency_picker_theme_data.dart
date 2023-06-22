@@ -30,6 +30,13 @@ class CurrencyPickerThemeData {
   /// By default it's fullscreen
   final double? bottomSheetHeight;
 
+  ///Search textfield prefix icon
+  ///
+  final Icon? searchIcon;
+
+  /// Input borderside color
+  final Color? borderColor;
+
   CurrencyPickerThemeData({
     this.shape,
     this.flagSize,
@@ -38,5 +45,7 @@ class CurrencyPickerThemeData {
     this.currencySignTextStyle,
     this.backgroundColor,
     this.bottomSheetHeight,
+    this.searchIcon,
+    this.borderColor,
   });
 }
