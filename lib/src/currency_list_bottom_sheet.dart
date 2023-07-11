@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'currency.dart';
+import 'models/currency.dart';
 import 'currency_list_view.dart';
-import 'currency_picker_theme_data.dart';
+import 'models/currency_picker_theme_data.dart';
 
 void showCurrencyListBottomSheet({
   required BuildContext context,

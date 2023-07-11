@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'models/currency.dart';
@@ -6,7 +7,7 @@ import 'currency_service.dart';
 import 'models/currency_picker_theme_data.dart';
 import 'package:currency_picker/src/utils/extensions.dart';
 
-class CurrencyListView extends StatefulWidget {
+class CupertinoCurrencyListView extends StatefulWidget {
   /// Called when a currency is select.
   ///
   /// The currency picker passes the new value to the callback.
@@ -49,17 +50,17 @@ class CurrencyListView extends StatefulWidget {
   /// Defaults Search.
   final String? searchHint;
 
-  final bool showClearSuffix;
-
   final ScrollController? controller;
 
   final ScrollPhysics? physics;
+
+  final BoxDecoration? searchInputDecoration;
 
   /// An optional argument for for customizing the
   /// currency list bottom sheet.
   final CurrencyPickerThemeData? theme;
 
-  const CurrencyListView({
+  const CupertinoCurrencyListView({
     Key? key,
     required this.onSelect,
     this.favorite,
@@ -67,20 +68,20 @@ class CurrencyListView extends StatefulWidget {
     this.showSearchField = true,
     this.label,
     this.searchHint,
-    this.showClearSuffix = false,
     this.showCurrencyCode = true,
     this.showCurrencyName = true,
     this.showFlag = true,
     this.physics,
     this.controller,
+    this.searchInputDecoration,
     this.theme,
   }) : super(key: key);
 
   @override
-  _CurrencyListViewState createState() => _CurrencyListViewState();
+  _CupertinoCurrencyListViewState createState() => _CupertinoCurrencyListViewState();
 }
 
-class _CurrencyListViewState extends State<CurrencyListView> {
+class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
   final CurrencyService _currencyService = CurrencyService();
 
   late List<Currency> _filteredList;
@@ -122,40 +123,18 @@ class _CurrencyListViewState extends State<CurrencyListView> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const SizedBox(height: 12),
+        const SizedBox(height: 6.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: widget.showSearchField
-              ? TextField(
+              ? CupertinoSearchTextField(
                   controller: _searchController,
-                  decoration: InputDecoration(
-                    labelText: widget.label,
-                    hintText: widget.searchHint ?? "Search",
-                    prefixIcon: widget.theme?.searchIcon,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: defaultColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                        color: widget.theme?.borderColor ?? defaultColor,
-                      ),
-                    ),
-                    suffixIcon: widget.showClearSuffix
-                        ? IconButton(
-                            icon: Icon(
-                              Icons.clear,
-                              color: widget.theme?.borderColor ?? defaultColor,
-                            ),
-                            onPressed: () {
-                              _searchController?.clear();
-                              _filterSearchResults("");
-                            },
-                          )
-                        : null,
-                  ),
+                  enableIMEPersonalizedLearning: true,
+                  decoration: widget.searchInputDecoration,
+                  placeholder: widget.searchHint,
+                  prefixIcon: widget.theme?.searchIcon ?? const Icon(CupertinoIcons.search),
                   onChanged: _filterSearchResults,
+                  onSubmitted: _filterSearchResults,
                 )
               : Container(),
         ),

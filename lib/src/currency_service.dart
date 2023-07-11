@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 
-import 'currencies.dart';
-import 'currency.dart';
+import 'data/currencies.dart';
+import 'models/currency.dart';
 
 class CurrencyService {
   final List<Currency> _currencies;

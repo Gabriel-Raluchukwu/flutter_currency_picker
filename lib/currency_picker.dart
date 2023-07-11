@@ -2,15 +2,18 @@ library currency_picker;
 
 import 'package:flutter/material.dart';
 
-import 'src/currency.dart';
+import 'src/models/currency.dart';
 import 'src/currency_list_bottom_sheet.dart' as currency_list;
-import 'src/currency_picker_theme_data.dart';
+import 'src/models/currency_picker_theme_data.dart';
 
-export 'package:currency_picker/src/currency.dart';
-export 'package:currency_picker/src/currency_list_view.dart';
-export 'package:currency_picker/src/currency_picker_theme_data.dart';
+export 'package:currency_picker/src/models/currency.dart';
+export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 export 'package:currency_picker/src/currency_service.dart';
-export 'package:currency_picker/src/currency_utils.dart';
+export 'package:currency_picker/src/utils/currency_utils.dart';
+
+/// Currency list view
+export 'package:currency_picker/src/currency_list_view.dart';
+export 'package:currency_picker/src/cupertino_currency_list_view.dart';
 
 /// Show currency picker
 ///

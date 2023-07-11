@@ -1,4 +1,4 @@
-import 'currency.dart';
+import '../models/currency.dart';
 
 class CurrencyUtils {
   /// Return Flag (Emoji Unicode) of a given currency
