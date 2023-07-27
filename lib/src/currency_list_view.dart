@@ -120,61 +120,64 @@ class _CurrencyListViewState extends State<CurrencyListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          child: widget.showSearchField
-              ? TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    labelText: widget.label,
-                    hintText: widget.searchHint ?? "Search",
-                    prefixIcon: widget.theme?.searchIcon,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: defaultColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                        color: widget.theme?.borderColor ?? defaultColor,
+    return Container(
+      color: widget.theme?.backgroundColor,
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: widget.showSearchField
+                ? TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: widget.label,
+                      hintText: widget.searchHint ?? "Search",
+                      prefixIcon: widget.theme?.searchIcon,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: defaultColor),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: widget.theme?.borderColor ?? defaultColor,
+                        ),
+                      ),
+                      suffixIcon: widget.showClearSuffix
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.clear,
+                                color: widget.theme?.borderColor ?? defaultColor,
+                              ),
+                              onPressed: () {
+                                _searchController?.clear();
+                                _filterSearchResults("");
+                              },
+                            )
+                          : null,
                     ),
-                    suffixIcon: widget.showClearSuffix
-                        ? IconButton(
-                            icon: Icon(
-                              Icons.clear,
-                              color: widget.theme?.borderColor ?? defaultColor,
-                            ),
-                            onPressed: () {
-                              _searchController?.clear();
-                              _filterSearchResults("");
-                            },
-                          )
-                        : null,
-                  ),
-                  onChanged: _filterSearchResults,
-                )
-              : Container(),
-        ),
-        Expanded(
-          child: ListView(
-            physics: widget.physics,
-            children: [
-              if (_favoriteList != null) ...[
-                ..._favoriteList!.map<Widget>((currency) => _listRow(currency)),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Divider(thickness: 1),
-                ),
-              ],
-              ..._filteredList.map<Widget>((currency) => _listRow(currency))
-            ],
+                    onChanged: _filterSearchResults,
+                  )
+                : Container(),
           ),
-        ),
-      ],
+          Expanded(
+            child: ListView(
+              physics: widget.physics,
+              children: [
+                if (_favoriteList != null) ...[
+                  ..._favoriteList!.map<Widget>((currency) => _listRow(currency)),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Divider(thickness: 1),
+                  ),
+                ],
+                ..._filteredList.map<Widget>((currency) => _listRow(currency))
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -121,39 +121,42 @@ class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const SizedBox(height: 6.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          child: widget.showSearchField
-              ? CupertinoSearchTextField(
-                  controller: _searchController,
-                  enableIMEPersonalizedLearning: true,
-                  decoration: widget.searchInputDecoration,
-                  placeholder: widget.searchHint,
-                  prefixIcon: widget.theme?.searchIcon ?? const Icon(CupertinoIcons.search),
-                  onChanged: _filterSearchResults,
-                  onSubmitted: _filterSearchResults,
-                )
-              : Container(),
-        ),
-        Expanded(
-          child: ListView(
-            physics: widget.physics,
-            children: [
-              if (_favoriteList != null) ...[
-                ..._favoriteList!.map<Widget>((currency) => _listRow(currency)),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Divider(thickness: 1),
-                ),
-              ],
-              ..._filteredList.map<Widget>((currency) => _listRow(currency))
-            ],
+    return Container(
+      color: widget.theme?.backgroundColor,
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 6.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: widget.showSearchField
+                ? CupertinoSearchTextField(
+                    controller: _searchController,
+                    enableIMEPersonalizedLearning: true,
+                    decoration: widget.searchInputDecoration,
+                    placeholder: widget.searchHint,
+                    prefixIcon: widget.theme?.searchIcon ?? const Icon(CupertinoIcons.search),
+                    onChanged: _filterSearchResults,
+                    onSubmitted: _filterSearchResults,
+                  )
+                : Container(),
           ),
-        ),
-      ],
+          Expanded(
+            child: ListView(
+              physics: widget.physics,
+              children: [
+                if (_favoriteList != null) ...[
+                  ..._favoriteList!.map<Widget>((currency) => _listRow(currency)),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Divider(thickness: 1),
+                  ),
+                ],
+                ..._filteredList.map<Widget>((currency) => _listRow(currency))
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
