@@ -17,7 +17,7 @@ List<Map<String, dynamic>> currencies = [
     "code": "EUR",
     "name": "Euro",
     "symbol": "€",
-    "flag": "EUR",
+    "flag": "eu.png",
     "decimal_digits": 2,
     "number": 978,
     "name_plural": "Euros",

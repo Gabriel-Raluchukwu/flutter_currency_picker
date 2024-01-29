@@ -1,15 +1,13 @@
 import 'package:collection/collection.dart';
 
-import 'data/currencies.dart';
-import 'models/currency.dart';
+import 'package:currency_picker/src/data/currencies.dart';
+import 'package:currency_picker/src/models/currency.dart';
 
 class CurrencyService {
   final List<Currency> _currencies;
 
   CurrencyService()
-      : _currencies = currencies
-            .map((currency) => Currency.from(json: currency))
-            .toList();
+      : _currencies = currencies.map((currency) => Currency.from(json: currency)).toList();
 
   ///Return list with all currencies
   List<Currency> getAll() {
@@ -17,27 +15,25 @@ class CurrencyService {
   }
 
   ///Returns the first currency that mach the given code.
-  Currency? findByCode(String? code) {
-    final uppercaseCode = code?.toUpperCase();
-    return _currencies
-        .firstWhereOrNull((currency) => currency.code == uppercaseCode);
+  Currency? findByCode(String code) {
+    final uppercaseCode = code.toUpperCase();
+    return _currencies.firstWhereOrNull((currency) => currency.code == uppercaseCode);
   }
 
   ///Returns the first currency that mach the given name.
-  Currency? findByName(String? name) {
-    return _currencies.firstWhereOrNull((currency) => currency.name == name);
+  Currency? findByName(String name) {
+    return _currencies
+        .firstWhereOrNull((currency) => currency.name.toLowerCase() == name.toLowerCase());
   }
 
   ///Returns the first currency that mach the given number.
-  Currency? findByNumber(int? number) {
-    return _currencies
-        .firstWhereOrNull((currency) => currency.number == number);
+  Currency? findByNumber(int number) {
+    return _currencies.firstWhereOrNull((currency) => currency.number == number);
   }
 
   ///Returns a list with all the currencies that mach the given codes list.
   List<Currency> findCurrenciesByCode(List<String> codes) {
-    final List<String> _codes =
-        codes.map((code) => code.toUpperCase()).toList();
+    final List<String> _codes = codes.map((code) => code.toUpperCase()).toList();
     final List<Currency> currencies = [];
     for (final code in _codes) {
       final Currency? currency = findByCode(code);

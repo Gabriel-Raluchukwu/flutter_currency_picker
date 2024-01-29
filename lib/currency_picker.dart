@@ -2,24 +2,29 @@ library currency_picker;
 
 import 'package:flutter/material.dart';
 
-import 'src/models/currency.dart';
-import 'src/currency_list_bottom_sheet.dart' as currency_list;
-import 'src/models/currency_picker_theme_data.dart';
+import 'package:currency_picker/src/models/currency.dart';
+import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
+import 'package:currency_picker/src/currency_list_bottom_sheet.dart' as currency_list;
 
 export 'package:currency_picker/src/models/currency.dart';
-export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 export 'package:currency_picker/src/currency_service.dart';
 export 'package:currency_picker/src/utils/currency_utils.dart';
+export 'package:currency_picker/src/widgets/currency_tile.dart';
+export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
 /// Currency list view
 export 'package:currency_picker/src/currency_list_view.dart';
-export 'package:currency_picker/src/cupertino_currency_list_view.dart';
+
+/// Currency flag
+export 'package:currency_picker/src/widgets/currency_flag.dart';
 
 /// Show currency picker
 ///
 ///  `onSelect`: Called when a currency is select. The currency picker passes the new value to the callback (required)
 ///
 ///  `showFlag`: Shows flag for each currency. Default value true (optional).
+///
+///  `useCountryFlag`: Uses CountryFlag package when building flags. Default value false (optional).
 ///
 ///  `searchHint`: Option to customize hint of the search TextField (optional).
 ///
@@ -54,11 +59,13 @@ export 'package:currency_picker/src/cupertino_currency_list_view.dart';
 void showCurrencyPicker({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  double? height,
   List<String>? favorite,
   List<String>? currencyFilter,
   String? searchHint,
   bool showSearchField = true,
   bool showFlag = true,
+  bool useCountryFlag = false,
   bool showCurrencyName = true,
   bool showCurrencyCode = true,
   bool useRootNavigator = false,
@@ -72,9 +79,11 @@ void showCurrencyPicker({
   currency_list.showCurrencyListBottomSheet(
     context: context,
     onSelect: onSelect,
+    height: height,
     showSearchField: showSearchField,
     searchHint: searchHint,
     showFlag: showFlag,
+    useCountryFlag: useCountryFlag,
     showCurrencyName: showCurrencyName,
     showCurrencyCode: showCurrencyCode,
     useRootNavigator: useRootNavigator,
@@ -82,19 +91,5 @@ void showCurrencyPicker({
     currencyFilter: currencyFilter,
     theme: theme,
     physics: physics,
-  );
-}
-
-@Deprecated(
-  'Use showCurrencyPicker instead. '
-  'This feature was deprecated after v1.0.2.',
-)
-void showCurrencyListBottomSheet({
-  required BuildContext context,
-  required ValueChanged<Currency> onSelect,
-}) {
-  showCurrencyPicker(
-    context: context,
-    onSelect: onSelect,
   );
 }

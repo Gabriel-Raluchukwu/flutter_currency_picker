@@ -20,10 +20,29 @@ class CurrencyPickerThemeData {
   /// If null, the style will be set to [TextStyle(fontSize: 18);]
   final TextStyle? currencySignTextStyle;
 
-  ///The flag size.
+  ///The flag  size.
   ///
   /// If null, set to 25
-  final double? flagSize;
+  final double flagSize;
+
+  ///The flag image height.
+  ///
+  /// If null, set to 27
+  final double flagHeight;
+
+  ///The flag image width.
+  ///
+  /// If null, set to 25
+  final double flagWidth;
+
+  ///Flag padding
+  ///
+  final EdgeInsetsGeometry? flagPadding;
+
+  ///The flag border radius.
+  ///
+  /// If null, set to 6.5
+  final double? flagBorderRadius;
 
   ///Country list modal height
   ///
@@ -37,9 +56,16 @@ class CurrencyPickerThemeData {
   /// Input borderside color
   final Color? borderColor;
 
-  CurrencyPickerThemeData({
+  /// Icon color
+  final Color? iconColor;
+
+  const CurrencyPickerThemeData({
     this.shape,
-    this.flagSize,
+    this.flagSize = 25,
+    this.flagHeight = 32,
+    this.flagWidth = 32,
+    this.flagPadding,
+    this.flagBorderRadius = 6.5,
     this.titleTextStyle,
     this.subtitleTextStyle,
     this.currencySignTextStyle,
@@ -47,5 +73,6 @@ class CurrencyPickerThemeData {
     this.bottomSheetHeight,
     this.searchIcon,
     this.borderColor,
+    this.iconColor,
   });
 }

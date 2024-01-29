@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'models/currency.dart';
-import 'currency_list_view.dart';
-import 'models/currency_picker_theme_data.dart';
+import 'package:currency_picker/src/models/currency.dart';
+import 'package:currency_picker/src/currency_list_view.dart';
+import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
 void showCurrencyListBottomSheet({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  double? height,
   List<String>? favorite,
   List<String>? currencyFilter,
   String? searchHint,
   bool showSearchField = true,
   bool showFlag = true,
+  bool useCountryFlag = false,
   bool showCurrencyName = true,
   bool showCurrencyCode = true,
   bool useRootNavigator = false,
@@ -32,12 +34,14 @@ void showCurrencyListBottomSheet({
     builder: (_) => _builder(
       context,
       onSelect,
+      height,
       favorite,
       currencyFilter,
       searchHint,
       physics,
       showSearchField,
       showFlag,
+      useCountryFlag,
       showCurrencyName,
       showCurrencyCode,
       theme,
@@ -48,33 +52,62 @@ void showCurrencyListBottomSheet({
 Widget _builder(
   BuildContext context,
   ValueChanged<Currency> onSelect,
+  double? height,
   List<String>? favorite,
   List<String>? currencyFilter,
   String? searchHint,
   ScrollPhysics? physics,
   bool showSearchField,
   bool showFlag,
+  bool useCountryFlag,
   bool showCurrencyName,
   bool showCurrencyCode,
-  CurrencyPickerThemeData? theme,
+  CurrencyPickerThemeData? currencyPickerTheme,
 ) {
   final device = MediaQuery.of(context).size.height;
   final statusBarHeight = MediaQuery.of(context).padding.top;
-  final height = theme?.bottomSheetHeight ??
-      device - (statusBarHeight + (kToolbarHeight / 1.5));
-  return SizedBox(
-    height: height,
-    child: CurrencyListView(
-      onSelect: onSelect,
-      searchHint: searchHint,
-      showSearchField: showSearchField,
-      showFlag: showFlag,
-      showCurrencyName: showCurrencyName,
-      showCurrencyCode: showCurrencyCode,
-      favorite: favorite,
-      currencyFilter: currencyFilter,
-      physics: physics,
-      theme: theme,
-    ),
-  );
+  final defaultHeight =
+      currencyPickerTheme?.bottomSheetHeight ?? device - (statusBarHeight + (kToolbarHeight / 1.5));
+
+  final ThemeData theme = Theme.of(context);
+  switch (theme.platform) {
+    case TargetPlatform.android:
+    case TargetPlatform.fuchsia:
+    case TargetPlatform.linux:
+    case TargetPlatform.windows:
+      return SizedBox(
+        height: height ?? defaultHeight,
+        child: CurrencyListView(
+          onSelect: onSelect,
+          searchHint: searchHint,
+          showSearchField: showSearchField,
+          showFlag: showFlag,
+          useCountryFlag: useCountryFlag,
+          showCurrencyName: showCurrencyName,
+          showCurrencyCode: showCurrencyCode,
+          favorite: favorite,
+          currencyFilter: currencyFilter,
+          physics: physics,
+          theme: currencyPickerTheme,
+        ),
+      );
+    case TargetPlatform.iOS:
+    case TargetPlatform.macOS:
+      return SizedBox(
+        height: height ?? defaultHeight,
+        child: CupertinoCurrencyListView(
+          onSelect: onSelect,
+          searchHint: searchHint,
+          showSearchField: showSearchField,
+          showFlag: showFlag,
+          useCountryFlag: useCountryFlag,
+          showCurrencyName: showCurrencyName,
+          showCurrencyCode: showCurrencyCode,
+          favorite: favorite,
+          currencyFilter: currencyFilter,
+          physics: physics,
+          theme: currencyPickerTheme,
+        ),
+      );
+  }
 }

@@ -1,4 +1,4 @@
-import '../models/currency.dart';
+import 'package:currency_picker/src/models/currency.dart';
 
 class CurrencyUtils {
   /// Return Flag (Emoji Unicode) of a given currency
@@ -14,4 +14,6 @@ class CurrencyUtils {
     final int secondLetter = currencyFlag.codeUnitAt(1) - 0x41 + 0x1F1E6;
     return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
+
+  static String currencyFlagToCountryCode(Currency currency) => currency.flag!.substring(0, 2);
 }
