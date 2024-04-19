@@ -42,6 +42,10 @@ class HomePage extends StatelessWidget {
                     showCurrencyCode: true,
                     onSelect: (Currency currency) {
                       print('Select currency: ${currency.name}');
+                      Navigator.of(context).pop();
+                    },
+                    onDismiss: () {
+                      print("Dismissed");
                     },
                     favorite: ['SEK'],
                   );

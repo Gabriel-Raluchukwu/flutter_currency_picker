@@ -59,6 +59,7 @@ export 'package:currency_picker/src/widgets/currency_flag.dart';
 void showCurrencyPicker({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  VoidCallback? onDismiss,
   double? height,
   List<String>? favorite,
   List<String>? currencyFilter,
@@ -79,6 +80,7 @@ void showCurrencyPicker({
   currency_list.showCurrencyListBottomSheet(
     context: context,
     onSelect: onSelect,
+    onDismiss: onDismiss,
     height: height,
     showSearchField: showSearchField,
     searchHint: searchHint,

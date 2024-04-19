@@ -7,6 +7,7 @@ import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 void showCurrencyListBottomSheet({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  VoidCallback? onDismiss,
   double? height,
   List<String>? favorite,
   List<String>? currencyFilter,
@@ -46,7 +47,11 @@ void showCurrencyListBottomSheet({
       showCurrencyCode,
       theme,
     ),
-  );
+  ).whenComplete(() {
+    if (onDismiss != null) {
+      onDismiss();
+    }
+  });
 }
 
 Widget _builder(
