@@ -15,6 +15,9 @@ export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 /// Currency list view
 export 'package:currency_picker/src/currency_list_view.dart';
 
+/// Country Flag
+export 'package:currency_picker/src/widgets/country_flag.dart';
+
 /// Currency flag
 export 'package:currency_picker/src/widgets/currency_flag.dart';
 

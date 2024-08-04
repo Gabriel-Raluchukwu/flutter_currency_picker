@@ -75,4 +75,37 @@ class CurrencyPickerThemeData {
     this.borderColor,
     this.iconColor,
   });
+
+  CurrencyPickerThemeData copyWith({
+    ShapeBorder? shape,
+    Color? backgroundColor,
+    TextStyle? titleTextStyle,
+    TextStyle? subtitleTextStyle,
+    TextStyle? currencySignTextStyle,
+    double? flagSize,
+    double? flagHeight,
+    double? flagWidth,
+    EdgeInsetsGeometry? flagPadding,
+    double? flagBorderRadius,
+    double? bottomSheetHeight,
+    Icon? searchIcon,
+    Color? borderColor,
+    Color? iconColor,
+  }) =>
+      CurrencyPickerThemeData(
+        shape: shape ?? this.shape,
+        backgroundColor: backgroundColor ?? this.backgroundColor,
+        titleTextStyle: titleTextStyle ?? this.titleTextStyle,
+        subtitleTextStyle: subtitleTextStyle ?? this.subtitleTextStyle,
+        currencySignTextStyle: currencySignTextStyle ?? this.currencySignTextStyle,
+        flagSize: flagSize ?? this.flagSize,
+        flagHeight: flagHeight ?? this.flagHeight,
+        flagWidth: flagWidth ?? this.flagWidth,
+        flagPadding: flagPadding ?? this.flagPadding,
+        flagBorderRadius: flagBorderRadius ?? this.flagBorderRadius,
+        bottomSheetHeight: bottomSheetHeight ?? this.bottomSheetHeight,
+        searchIcon: searchIcon ?? this.searchIcon,
+        borderColor: borderColor ?? this.borderColor,
+        iconColor: iconColor ?? this.iconColor,
+      );
 }
