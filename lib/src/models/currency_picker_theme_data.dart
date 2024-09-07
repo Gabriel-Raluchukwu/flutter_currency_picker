@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:currency_picker/src/models/currency_tile_theme_data.dart';
 
 class CurrencyPickerThemeData {
   ///  The currency bottom sheet's shape.
@@ -17,32 +18,13 @@ class CurrencyPickerThemeData {
   /// If null, the style will be set to [TextStyle(fontSize: 15, color: Theme.of(context).hintColor)]
   final TextStyle? subtitleTextStyle;
 
+  ///The style to use for title text.
+  ///
+  /// If null, the style will be set to [TextStyle(fontSize: 17)]
+  final TextStyle? hintTextStyle;
+
   /// If null, the style will be set to [TextStyle(fontSize: 18);]
   final TextStyle? currencySignTextStyle;
-
-  ///The flag  size.
-  ///
-  /// If null, set to 25
-  final double flagSize;
-
-  ///The flag image height.
-  ///
-  /// If null, set to 27
-  final double flagHeight;
-
-  ///The flag image width.
-  ///
-  /// If null, set to 25
-  final double flagWidth;
-
-  ///Flag padding
-  ///
-  final EdgeInsetsGeometry? flagPadding;
-
-  ///The flag border radius.
-  ///
-  /// If null, set to 6.5
-  final double? flagBorderRadius;
 
   ///Country list modal height
   ///
@@ -59,21 +41,20 @@ class CurrencyPickerThemeData {
   /// Icon color
   final Color? iconColor;
 
+  final CurrencyTileThemeData? currencyTileTheme;
+
   const CurrencyPickerThemeData({
     this.shape,
-    this.flagSize = 25,
-    this.flagHeight = 32,
-    this.flagWidth = 32,
-    this.flagPadding,
-    this.flagBorderRadius = 6.5,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.hintTextStyle,
     this.currencySignTextStyle,
     this.backgroundColor,
     this.bottomSheetHeight,
     this.searchIcon,
     this.borderColor,
     this.iconColor,
+    this.currencyTileTheme,
   });
 
   CurrencyPickerThemeData copyWith({
@@ -91,6 +72,7 @@ class CurrencyPickerThemeData {
     Icon? searchIcon,
     Color? borderColor,
     Color? iconColor,
+    CurrencyTileThemeData? currencyTileTheme,
   }) =>
       CurrencyPickerThemeData(
         shape: shape ?? this.shape,
@@ -98,14 +80,10 @@ class CurrencyPickerThemeData {
         titleTextStyle: titleTextStyle ?? this.titleTextStyle,
         subtitleTextStyle: subtitleTextStyle ?? this.subtitleTextStyle,
         currencySignTextStyle: currencySignTextStyle ?? this.currencySignTextStyle,
-        flagSize: flagSize ?? this.flagSize,
-        flagHeight: flagHeight ?? this.flagHeight,
-        flagWidth: flagWidth ?? this.flagWidth,
-        flagPadding: flagPadding ?? this.flagPadding,
-        flagBorderRadius: flagBorderRadius ?? this.flagBorderRadius,
         bottomSheetHeight: bottomSheetHeight ?? this.bottomSheetHeight,
         searchIcon: searchIcon ?? this.searchIcon,
         borderColor: borderColor ?? this.borderColor,
         iconColor: iconColor ?? this.iconColor,
+        currencyTileTheme: currencyTileTheme ?? this.currencyTileTheme,
       );
 }

@@ -10,6 +10,7 @@ export 'package:currency_picker/src/models/currency.dart';
 export 'package:currency_picker/src/currency_service.dart';
 export 'package:currency_picker/src/utils/currency_utils.dart';
 export 'package:currency_picker/src/widgets/currency_tile.dart';
+export 'package:currency_picker/src/models/currency_tile_theme_data.dart';
 export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
 /// Currency list view

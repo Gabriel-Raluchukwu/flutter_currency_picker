@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:currency_picker/src/models/currency.dart';
 import 'package:currency_picker/src/currency_service.dart';
+import 'package:currency_picker/src/widgets/search_field.dart';
 import 'package:currency_picker/src/widgets/currency_tile.dart';
 import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
@@ -91,15 +92,32 @@ class _CurrencyListViewState extends State<CurrencyListView> {
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
 
-  TextEditingController? _searchController;
+  late TextEditingController _searchController;
+
+  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
+
+  void _filterSearchResults(String query) {
+    List<Currency> searchResult = <Currency>[];
+    if (query.isEmpty) {
+      searchResult.addAll(_currencyList);
+    } else {
+      // ignore: parameter_assignments
+      query = query.toLowerCase();
+      searchResult = _currencyList
+          .where(
+            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
+          )
+          .toList();
+    }
+
+    setState(() => _filteredList = searchResult);
+  }
 
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-
     _currencyList = _currencyService.getAll();
-
     _filteredList = <Currency>[];
 
     if (widget.currencyFilter != null) {
@@ -118,7 +136,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
 
   @override
   void dispose() {
-    _searchController?.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -132,36 +150,14 @@ class _CurrencyListViewState extends State<CurrencyListView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: widget.showSearchField
-                ? TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      labelText: widget.label,
-                      hintText: widget.searchHint ?? "Search",
-                      prefixIcon: widget.theme?.searchIcon,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: defaultColor),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: widget.theme?.borderColor ?? defaultColor,
-                        ),
-                      ),
-                      suffixIcon: widget.showClearSuffix
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.clear,
-                                color: widget.theme?.iconColor ?? defaultColor,
-                              ),
-                              onPressed: () {
-                                _searchController?.clear();
-                                _filterSearchResults("");
-                              },
-                            )
-                          : null,
-                    ),
-                    onChanged: _filterSearchResults,
+                ? SearchField(
+                    searchController: _searchController,
+                    label: widget.label,
+                    searchHint: widget.searchHint,
+                    theme: widget.theme,
+                    borderColor: defaultColor,
+                    filterSearchResults: _filterSearchResults,
+                    showClearSuffixIcon: widget.showClearSuffix,
                   )
                 : Container(),
           ),
@@ -204,26 +200,6 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       ),
     );
   }
-
-  void _filterSearchResults(String query) {
-    List<Currency> searchResult = <Currency>[];
-
-    if (query.isEmpty) {
-      searchResult.addAll(_currencyList);
-    } else {
-      // ignore: parameter_assignments
-      query = query.toLowerCase();
-      searchResult = _currencyList
-          .where(
-            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
-          )
-          .toList();
-    }
-
-    setState(() => _filteredList = searchResult);
-  }
-
-  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
 }
 
 class CupertinoCurrencyListView extends StatefulWidget {
@@ -313,19 +289,35 @@ class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
 
   TextEditingController? _searchController;
 
+  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
+
+  void _filterSearchResults(String query) {
+    List<Currency> searchResult = <Currency>[];
+    if (query.isEmpty) {
+      searchResult.addAll(_currencyList);
+    } else {
+      // ignore: parameter_assignments
+      query = query.toLowerCase();
+      searchResult = _currencyList
+          .where(
+            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
+          )
+          .toList();
+    }
+
+    setState(() => _filteredList = searchResult);
+  }
+
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-
     _currencyList = _currencyService.getAll();
-
     _filteredList = <Currency>[];
 
     if (widget.currencyFilter != null) {
       final List<String> currencyFilter =
           widget.currencyFilter!.map((code) => code.toUpperCase()).toList();
-
       _currencyList.removeWhere((element) => !currencyFilter.contains(element.code));
     }
 
@@ -402,24 +394,4 @@ class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
       ),
     );
   }
-
-  void _filterSearchResults(String query) {
-    List<Currency> searchResult = <Currency>[];
-
-    if (query.isEmpty) {
-      searchResult.addAll(_currencyList);
-    } else {
-      // ignore: parameter_assignments
-      query = query.toLowerCase();
-      searchResult = _currencyList
-          .where(
-            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
-          )
-          .toList();
-    }
-
-    setState(() => _filteredList = searchResult);
-  }
-
-  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
 }

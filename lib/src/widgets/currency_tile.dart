@@ -27,6 +27,7 @@ class CurrencyTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currencyTileTheme = theme?.currencyTileTheme;
     final TextStyle titleTextStyle = theme?.titleTextStyle ?? Constants.defaultTitleTextStyle;
     final TextStyle subtitleTextStyle =
         theme?.subtitleTextStyle ?? Constants.defaultSubtitleTextStyle(context);
@@ -39,8 +40,11 @@ class CurrencyTile extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () => onSelect(currency),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 8.0),
+        child: Container(
+          margin: currencyTileTheme?.margin ??
+              const EdgeInsets.symmetric(vertical: 4.0, horizontal: 14.0),
+          padding: currencyTileTheme?.padding ?? const EdgeInsets.fromLTRB(0.0, 8.5, 8.0, 8.5),
+          decoration: currencyTileTheme?.decoration,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -51,7 +55,7 @@ class CurrencyTile extends StatelessWidget {
                     if (showFlag) ...[
                       CurrencyFlag(
                         currency: currency,
-                        theme: theme,
+                        theme: theme?.currencyTileTheme,
                         useCurrencyFlag: useCountryFlag,
                       ),
                       const SizedBox(width: 15),
