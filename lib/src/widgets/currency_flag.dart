@@ -4,11 +4,11 @@ import 'package:country_flags/country_flags.dart';
 import 'package:currency_picker/src/models/currency.dart';
 import 'package:currency_picker/src/utils/extensions.dart';
 import 'package:currency_picker/src/utils/currency_utils.dart';
-import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
+import 'package:currency_picker/src/models/currency_tile_theme_data.dart';
 
 class CurrencyFlag extends StatelessWidget {
   final Currency currency;
-  final CurrencyPickerThemeData? theme;
+  final CurrencyTileThemeData? theme;
   final bool useCurrencyFlag;
 
   const CurrencyFlag({
@@ -18,7 +18,7 @@ class CurrencyFlag extends StatelessWidget {
     this.theme,
   });
 
-  Widget _showImage(String image, {CurrencyPickerThemeData? theme}) {
+  Widget _showImage(String image, {CurrencyTileThemeData? theme}) {
     return Container(
       padding: theme?.flagPadding,
       child: ClipRRect(
@@ -51,8 +51,8 @@ class CurrencyFlag extends StatelessWidget {
             child: CountryFlag.fromCountryCode(
               CurrencyUtils.currencyFlagToCountryCode(currency),
               width: theme?.flagWidth ?? 48,
-              height: theme?.flagHeight ?? 24,
-              borderRadius: theme?.flagBorderRadius ?? 6.5,
+              height: theme?.flagHeight ?? 30,
+              shape: RoundedRectangle(theme?.flagBorderRadius ?? 6.5),
             ),
           )
         : Container(

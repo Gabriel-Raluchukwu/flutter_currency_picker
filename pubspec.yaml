@@ -13,8 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  collection: ^1.17.0
-  country_flags: ^2.2.0
+  collection: ^1.18.0
+  country_flags: ^3.0.0
 
 flutter:
   assets:

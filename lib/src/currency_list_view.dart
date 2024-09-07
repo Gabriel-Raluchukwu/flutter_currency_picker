@@ -91,24 +91,20 @@ class _CurrencyListViewState extends State<CurrencyListView> {
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
 
-  TextEditingController? _searchController;
+  late TextEditingController _searchController;
 
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-
     _currencyList = _currencyService.getAll();
-
     _filteredList = <Currency>[];
-
     if (widget.currencyFilter != null) {
       final List<String> currencyFilter =
           widget.currencyFilter!.map((code) => code.toUpperCase()).toList();
 
       _currencyList.removeWhere((element) => !currencyFilter.contains(element.code));
     }
-
     if (widget.favorite != null) {
       _favoriteList = _currencyService.findCurrenciesByCode(widget.favorite!);
     }
@@ -118,7 +114,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
 
   @override
   void dispose() {
-    _searchController?.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -137,6 +133,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
                     decoration: InputDecoration(
                       labelText: widget.label,
                       hintText: widget.searchHint ?? "Search",
+                      hintStyle: widget.theme?.hintTextStyle,
                       prefixIcon: widget.theme?.searchIcon,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -155,7 +152,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
                                 color: widget.theme?.iconColor ?? defaultColor,
                               ),
                               onPressed: () {
-                                _searchController?.clear();
+                                _searchController.clear();
                                 _filterSearchResults("");
                               },
                             )

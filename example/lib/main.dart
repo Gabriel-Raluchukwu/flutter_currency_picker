@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var platform = Theme.of(context).platform;
+    final platform = Theme.of(context).platform;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Demo for currency picker')),
@@ -35,11 +35,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   showCurrencyPicker(
                     context: context,
-                    showFlag: true,
                     useCountryFlag: true,
-                    showSearchField: true,
-                    showCurrencyName: true,
-                    showCurrencyCode: true,
                     onSelect: (Currency currency) {
                       print('Select currency: ${currency.name}');
                       Navigator.of(context).pop();
@@ -58,14 +54,14 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => Scaffold(
                       appBar: AppBar(
-                        title: Text("Currency List"),
+                        title: const Text("Currency List"),
                       ),
                       body: _buildAdaptiveCurrencyListView(platform),
                     ),
                   ),
                 ),
                 child: const Text("Show full Page picker"),
-              )
+              ),
             ],
           ),
         ),
@@ -83,9 +79,11 @@ Widget _buildAdaptiveCurrencyListView(TargetPlatform platform) {
       return CurrencyListView(
         onSelect: (value) {},
         useCountryFlag: true,
-        theme: const CurrencyPickerThemeData(
+        theme: CurrencyPickerThemeData(
           borderColor: Colors.black,
-          flagPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+          currencyTileTheme: CurrencyTileThemeData(
+            flagPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+          ),
         ),
       );
     case TargetPlatform.iOS:
@@ -95,6 +93,6 @@ Widget _buildAdaptiveCurrencyListView(TargetPlatform platform) {
         useCountryFlag: true,
       );
     default:
-      return Placeholder();
+      return const Placeholder();
   }
 }
