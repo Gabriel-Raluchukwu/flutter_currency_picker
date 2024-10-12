@@ -10,6 +10,7 @@ export 'package:currency_picker/src/models/currency.dart';
 export 'package:currency_picker/src/currency_service.dart';
 export 'package:currency_picker/src/utils/currency_utils.dart';
 export 'package:currency_picker/src/widgets/currency_tile.dart';
+export 'package:currency_picker/src/i18n/currency_localizations.dart';
 export 'package:currency_picker/src/models/currency_tile_theme_data.dart';
 export 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
@@ -63,6 +64,7 @@ export 'package:currency_picker/src/widgets/currency_flag.dart';
 void showCurrencyPicker({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  Locale? locale,
   VoidCallback? onDismiss,
   double? height,
   List<String>? favorite,
@@ -84,6 +86,7 @@ void showCurrencyPicker({
   currency_list.showCurrencyListBottomSheet(
     context: context,
     onSelect: onSelect,
+    locale: locale,
     onDismiss: onDismiss,
     height: height,
     showSearchField: showSearchField,

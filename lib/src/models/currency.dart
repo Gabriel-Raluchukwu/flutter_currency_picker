@@ -1,3 +1,5 @@
+import 'package:currency_picker/src/i18n/currency_localizations.dart';
+
 class Currency {
   ///The currency code
   final String code;
@@ -76,4 +78,27 @@ class Currency {
         'thousands_separator': thousandsSeparator,
         'space_between_amount_and_symbol': spaceBetweenAmountAndSymbol,
       };
+
+  @override
+  String toString() =>
+      'Currency(code: $code, name: $name, symbol: $symbol, decimalSeperator: $decimalSeparator, thousandsSeperator: $thousandsSeparator)';
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Currency) {
+      return other.code == code;
+    }
+
+    return super == other;
+  }
+
+  @override
+  int get hashCode => code.hashCode;
+
+  bool startsWith(String query, CurrencyLocalizations? localizations) {
+    final _query = query.toLowerCase();
+    return name.toLowerCase().contains(_query) ||
+        code.toLowerCase().contains(_query) ||
+        (localizations?.name(code)?.toLowerCase().contains(_query) ?? false);
+  }
 }

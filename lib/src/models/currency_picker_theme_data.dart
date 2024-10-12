@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:currency_picker/src/models/currency_tile_theme_data.dart';
 
 class CurrencyPickerThemeData {
@@ -63,11 +64,6 @@ class CurrencyPickerThemeData {
     TextStyle? titleTextStyle,
     TextStyle? subtitleTextStyle,
     TextStyle? currencySignTextStyle,
-    double? flagSize,
-    double? flagHeight,
-    double? flagWidth,
-    EdgeInsetsGeometry? flagPadding,
-    double? flagBorderRadius,
     double? bottomSheetHeight,
     Icon? searchIcon,
     Color? borderColor,

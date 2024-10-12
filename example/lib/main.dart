@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:currency_picker/currency_picker.dart';
 
@@ -8,9 +9,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: const Locale("fi", ""),
       title: 'Demo for currency picker package',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
+      localizationsDelegates: const [
+        CurrencyLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("en", ""),
+        Locale("de", ""),
+        Locale("nl", ""),
+        Locale("fr", ""),
+        Locale("fi", ""),
+        Locale("pl", ""),
+        Locale("es", ""),
+        Locale("sv", ""),
+        Locale("it", ""),
+        Locale("ru", ""),
+      ],
       home: const HomePage(),
     );
   }
@@ -79,11 +99,16 @@ Widget _buildAdaptiveCurrencyListView(TargetPlatform platform) {
       return CurrencyListView(
         onSelect: (value) {},
         useCountryFlag: true,
+        showClearSuffix: true,
         theme: CurrencyPickerThemeData(
           borderColor: Colors.black,
           currencyTileTheme: CurrencyTileThemeData(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
             flagPadding: const EdgeInsets.symmetric(horizontal: 8.0),
           ),
+          searchIcon: const Icon(Icons.search),
         ),
       );
     case TargetPlatform.iOS:

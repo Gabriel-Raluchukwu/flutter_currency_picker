@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:currency_picker/src/models/currency.dart';
 import 'package:currency_picker/src/values/constants.dart';
 import 'package:currency_picker/src/widgets/currency_flag.dart';
+import 'package:currency_picker/src/i18n/currency_localizations.dart';
 import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
 class CurrencyTile extends StatelessWidget {
@@ -72,7 +73,8 @@ class CurrencyTile extends StatelessWidget {
                           ],
                           if (showCurrencyName) ...[
                             Text(
-                              currency.name,
+                              CurrencyLocalizations.of(context).name(currency.code) ??
+                                  currency.name,
                               style: showCurrencyCode ? subtitleTextStyle : titleTextStyle,
                             ),
                           ],

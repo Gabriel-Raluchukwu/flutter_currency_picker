@@ -7,6 +7,7 @@ import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 void showCurrencyListBottomSheet({
   required BuildContext context,
   required ValueChanged<Currency> onSelect,
+  Locale? locale,
   VoidCallback? onDismiss,
   double? height,
   List<String>? favorite,
@@ -26,27 +27,37 @@ void showCurrencyListBottomSheet({
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       );
 
+  Widget builder = _builder(
+    context,
+    onSelect,
+    height,
+    favorite,
+    currencyFilter,
+    searchHint,
+    physics,
+    showSearchField,
+    showFlag,
+    useCountryFlag,
+    showCurrencyName,
+    showCurrencyCode,
+    theme,
+  );
+
+  if (locale != null) {
+    builder = Localizations.override(
+      context: context,
+      locale: locale,
+      child: builder,
+    );
+  }
+
   showModalBottomSheet<dynamic>(
     context: context,
     isScrollControlled: true,
     shape: shape,
     useRootNavigator: useRootNavigator,
     backgroundColor: theme?.backgroundColor,
-    builder: (_) => _builder(
-      context,
-      onSelect,
-      height,
-      favorite,
-      currencyFilter,
-      searchHint,
-      physics,
-      showSearchField,
-      showFlag,
-      useCountryFlag,
-      showCurrencyName,
-      showCurrencyCode,
-      theme,
-    ),
+    builder: (_) => builder,
   ).whenComplete(() {
     if (onDismiss != null) {
       onDismiss();

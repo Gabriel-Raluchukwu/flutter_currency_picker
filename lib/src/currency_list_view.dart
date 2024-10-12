@@ -5,6 +5,7 @@ import 'package:currency_picker/src/models/currency.dart';
 import 'package:currency_picker/src/currency_service.dart';
 import 'package:currency_picker/src/widgets/search_field.dart';
 import 'package:currency_picker/src/widgets/currency_tile.dart';
+import 'package:currency_picker/src/i18n/currency_localizations.dart';
 import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 
 class CurrencyListView extends StatefulWidget {
@@ -88,6 +89,7 @@ class CurrencyListView extends StatefulWidget {
 class _CurrencyListViewState extends State<CurrencyListView> {
   final CurrencyService _currencyService = CurrencyService();
 
+  late final CurrencyLocalizations _localizations;
   late List<Currency> _filteredList;
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
@@ -101,13 +103,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
     if (query.isEmpty) {
       searchResult.addAll(_currencyList);
     } else {
-      // ignore: parameter_assignments
-      query = query.toLowerCase();
-      searchResult = _currencyList
-          .where(
-            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
-          )
-          .toList();
+      searchResult = _currencyList.where((c) => c.startsWith(query, _localizations)).toList();
     }
 
     setState(() => _filteredList = searchResult);
@@ -132,6 +128,12 @@ class _CurrencyListViewState extends State<CurrencyListView> {
     }
 
     _filteredList.addAll(_currencyList);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _localizations = CurrencyLocalizations.of(context);
   }
 
   @override
@@ -283,6 +285,7 @@ class CupertinoCurrencyListView extends StatefulWidget {
 class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
   final CurrencyService _currencyService = CurrencyService();
 
+  late final CurrencyLocalizations _localizations;
   late List<Currency> _filteredList;
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
@@ -296,13 +299,7 @@ class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
     if (query.isEmpty) {
       searchResult.addAll(_currencyList);
     } else {
-      // ignore: parameter_assignments
-      query = query.toLowerCase();
-      searchResult = _currencyList
-          .where(
-            (c) => c.name.toLowerCase().contains(query) || c.code.toLowerCase().contains(query),
-          )
-          .toList();
+      searchResult = _currencyList.where((c) => c.startsWith(query, _localizations)).toList();
     }
 
     setState(() => _filteredList = searchResult);
@@ -326,6 +323,12 @@ class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
     }
 
     _filteredList.addAll(_currencyList);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _localizations = CurrencyLocalizations.of(context);
   }
 
   @override
