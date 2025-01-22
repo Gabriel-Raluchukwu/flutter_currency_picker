@@ -1,4 +1,3 @@
-library currency_picker;
 
 import 'package:flutter/material.dart';
 

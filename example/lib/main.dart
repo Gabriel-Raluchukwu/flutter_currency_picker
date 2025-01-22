@@ -3,13 +3,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:currency_picker/currency_picker.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: const Locale("fi", ""),
       title: 'Demo for currency picker package',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),

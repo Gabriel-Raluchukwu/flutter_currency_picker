@@ -89,14 +89,14 @@ class CurrencyListView extends StatefulWidget {
 class _CurrencyListViewState extends State<CurrencyListView> {
   final CurrencyService _currencyService = CurrencyService();
 
-  late final CurrencyLocalizations _localizations;
+  late CurrencyLocalizations _localizations;
   late List<Currency> _filteredList;
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
 
   late TextEditingController _searchController;
 
-  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
+  Color defaultColor = const Color(0xFF8C98A8).withValues(alpha: 0.2);
 
   void _filterSearchResults(String query) {
     List<Currency> searchResult = <Currency>[];
@@ -285,14 +285,14 @@ class CupertinoCurrencyListView extends StatefulWidget {
 class _CupertinoCurrencyListViewState extends State<CupertinoCurrencyListView> {
   final CurrencyService _currencyService = CurrencyService();
 
-  late final CurrencyLocalizations _localizations;
+  late CurrencyLocalizations _localizations;
   late List<Currency> _filteredList;
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
 
   TextEditingController? _searchController;
 
-  Color defaultColor = const Color(0xFF8C98A8).withOpacity(0.2);
+  Color defaultColor = const Color(0xFF8C98A8).withValues(alpha: 0.2);
 
   void _filterSearchResults(String query) {
     List<Currency> searchResult = <Currency>[];
