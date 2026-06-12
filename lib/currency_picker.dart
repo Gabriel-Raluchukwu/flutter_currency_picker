@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:currency_picker/src/models/currency.dart';
 import 'package:currency_picker/src/models/currency_picker_theme_data.dart';
 import 'package:currency_picker/src/currency_list_bottom_sheet.dart' as currency_list;
+
+export 'package:country_flags/country_flags.dart' show Circle, Rectangle, RoundedRectangle;
 
 export 'package:currency_picker/src/models/currency.dart';
 export 'package:currency_picker/src/currency_service.dart';

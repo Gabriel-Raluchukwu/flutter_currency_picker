@@ -1,5 +1,18 @@
 include: package:lint/analysis_options_package.yaml
 
+analyzer: 
+  language:
+    # never implicitly casts from dynamic to a more specific type
+    strict-casts: true 
+    # type inference engine never chooses the dynamic type when it can’t determine a static type
+    strict-inference: true 
+    # type inference engine never chooses the dynamic type when it can’t determine a static type due to omitted type arguments.
+    strict-raw-types: true 
+  strong-mode:
+    implicit-casts: true
+  errors:
+    missing_required_param: error
+
 linter:
   rules:
     avoid_print: false
@@ -13,10 +26,3 @@ linter:
     library_private_types_in_public_api: false
     avoid_classes_with_only_static_members: false
     no_leading_underscores_for_local_identifiers: false
-
-
-analyzer:
-  strong-mode:
-    implicit-casts: true
-  errors:
-    missing_required_param: error

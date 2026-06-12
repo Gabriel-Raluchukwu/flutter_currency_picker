@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+
 import 'package:country_flags/country_flags.dart';
+
+const double _kDefaultFlagHeight = 24.0;
+const double _kDefaultFlagWidth = 48.0;
+const double _kDefaultBorderRaius = 6.5;
 
 class Flag extends StatelessWidget {
   final String countryCode;
   final EdgeInsetsGeometry? padding;
-  final double flagWidth;
-  final double flagHeight;
-  final double borderRadius;
+  final double? flagWidth;
+  final double? flagHeight;
+  final double? borderRadius;
+  final Shape? shape;
 
   const Flag({
     super.key,
     required this.countryCode,
     this.padding,
-    this.flagHeight = 24.0,
-    this.flagWidth = 48.0,
-    this.borderRadius = 6.5,
+    this.flagHeight,
+    this.flagWidth,
+    this.borderRadius,
+    this.shape,
   });
 
   @override
@@ -23,9 +30,11 @@ class Flag extends StatelessWidget {
       padding: padding,
       child: CountryFlag.fromCountryCode(
         countryCode,
-        width: flagWidth,
-        height: flagHeight,
-        shape: RoundedRectangle(borderRadius),
+        theme: ImageTheme(
+          height: flagHeight ?? _kDefaultFlagHeight,
+          width: flagWidth ?? _kDefaultFlagWidth,
+          shape: shape ?? RoundedRectangle(borderRadius ?? _kDefaultBorderRaius),
+        ),
       ),
     );
   }

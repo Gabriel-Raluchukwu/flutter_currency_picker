@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:country_flags/country_flags.dart';
+
 class CurrencyTileThemeData {
   /// Currency tile padding
   final EdgeInsetsGeometry? padding;
@@ -25,6 +27,9 @@ class CurrencyTileThemeData {
   /// If null, set to 25
   final double flagWidth;
 
+  /// flag shape
+  final Shape? shape;
+
   ///Flag padding
   ///
   final EdgeInsetsGeometry? flagPadding;
@@ -41,6 +46,7 @@ class CurrencyTileThemeData {
     this.flagSize = 24,
     this.flagHeight = 30,
     this.flagWidth = 48,
+    this.shape,
     this.flagPadding,
     this.flagBorderRadius = 4.5,
   });
@@ -52,17 +58,18 @@ class CurrencyTileThemeData {
     double? flagSize,
     double? flagHeight,
     double? flagWidth,
+    Shape? shape,
     EdgeInsetsGeometry? flagPadding,
     double? flagBorderRadius,
-  }) =>
-      CurrencyTileThemeData(
-        padding: padding ?? this.padding,
-        margin: margin ?? this.margin,
-        decoration: decoration ?? this.decoration,
-        flagSize: flagSize ?? this.flagSize,
-        flagHeight: flagHeight ?? this.flagHeight,
-        flagWidth: flagWidth ?? this.flagWidth,
-        flagPadding: flagPadding ?? this.flagPadding,
-        flagBorderRadius: flagBorderRadius ?? this.flagBorderRadius,
-      );
+  }) => CurrencyTileThemeData(
+    padding: padding ?? this.padding,
+    margin: margin ?? this.margin,
+    decoration: decoration ?? this.decoration,
+    flagSize: flagSize ?? this.flagSize,
+    flagHeight: flagHeight ?? this.flagHeight,
+    flagWidth: flagWidth ?? this.flagWidth,
+    shape: shape ?? this.shape,
+    flagPadding: flagPadding ?? this.flagPadding,
+    flagBorderRadius: flagBorderRadius ?? this.flagBorderRadius,
+  );
 }

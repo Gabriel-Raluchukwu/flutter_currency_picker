@@ -11,20 +11,13 @@ class CurrencyFlag extends StatelessWidget {
   final CurrencyTileThemeData? theme;
   final bool useCurrencyFlag;
 
-  const CurrencyFlag({
-    super.key,
-    required this.currency,
-    this.useCurrencyFlag = false,
-    this.theme,
-  });
+  const CurrencyFlag({super.key, required this.currency, this.useCurrencyFlag = false, this.theme});
 
   Widget _showImage(String image, {CurrencyTileThemeData? theme}) {
     return Container(
       padding: theme?.flagPadding,
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8.0),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         child: Image.asset(
           image.imagePath,
           package: "currency_picker",
@@ -50,18 +43,18 @@ class CurrencyFlag extends StatelessWidget {
             padding: theme?.flagPadding,
             child: CountryFlag.fromCountryCode(
               CurrencyUtils.currencyFlagToCountryCode(currency),
-              width: theme?.flagWidth ?? 48,
-              height: theme?.flagHeight ?? 30,
-              shape: RoundedRectangle(theme?.flagBorderRadius ?? 6.5),
+              theme: ImageTheme(
+                width: theme?.flagWidth ?? 48,
+                height: theme?.flagHeight ?? 30,
+                shape: theme?.shape ?? RoundedRectangle(theme?.flagBorderRadius ?? 6.5),
+              ),
             ),
           )
         : Container(
             padding: theme?.flagPadding,
             child: Text(
               CurrencyUtils.currencyToEmoji(currency),
-              style: TextStyle(
-                fontSize: theme?.flagSize ?? 25,
-              ),
+              style: TextStyle(fontSize: theme?.flagSize ?? 25),
             ),
           );
   }
